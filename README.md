@@ -1,4 +1,4 @@
-# Spatial Data Science Resources
+# Geospatial Data Science Learning Resources
 
 ## References
 
