@@ -1,0 +1,47 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+
+  build:
+
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Setup Conda environment with Micromamba
+        uses: mamba-org/provision-with-micromamba@v14
+        with:
+          cache-downloads: true
+          cache-env: true
+          channels: conda-forge
+          channel-priority: strict
+          environment-file: environment.yml
+          environment-name: ppd599
+
+      - name: Test environment
+        run: |
+          python -m ipykernel install --sys-prefix --name ppd599 --display-name "Python (ppd599)"
+          conda list
+          conda info --all
+          jupyter kernelspec list
+          ipython -c "import osmnx; print('OSMnx version', osmnx.__version__)"

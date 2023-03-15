@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  envs363:
+    image: darribas/gds
+    container_name: envs363
+    command: "jupyter lab --ip='0.0.0.0' --port=8888 --no-browser --NotebookApp.token='' --NotebookApp.password=''"
+    volumes:
+      - '../:/home/jovyan/work'
+    ports:
+      - '8888:8888'

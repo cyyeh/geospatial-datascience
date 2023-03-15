@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  ppd599:
+    image: gboeing/ppd599
+    container_name: ppd599
+    volumes:
+      - '../../modules:/home/jovyan/work'
+    ports:
+      - '8888:8888'
